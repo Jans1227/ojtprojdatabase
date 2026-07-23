@@ -17,7 +17,7 @@ This database runs entirely off the main computer's hard drive.
 
 I.  PREREQUISITES (FOR THE MAIN SERVER PC)
 
-1.  Download Python (recommended: Python 3.12.x or 3.13.x) from python.org.
+1.  Download Python (recommended: Python 3.12.x, 3.13.x, or 3.14.x) from python.org.
 
 2.  Run the installer and check the box at the very bottom:
 
