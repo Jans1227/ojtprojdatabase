@@ -68,8 +68,8 @@ The developer has implemented the following technical security controls:
     address, and device details.
 
   - LOCAL FILE LOCK: On launch, Windows NTFS file permissions (via icacls) 
-    are set to block other local Windows user accounts from opening the 
-    database or configuration files.
+    are automatically set to block other local Windows user accounts from 
+    opening the database or configuration files.
 
   - TRANSACTION BACKUPS: The database silently duplicates itself to your 
     designated local backup directory or external USB storage every time 
@@ -84,7 +84,7 @@ The developer has implemented the following technical security controls:
 
   - NO AUTO-LOGOUT TIMER: If a user leaves their browser tab open on a 
     shared PC, the session remains active indefinitely until they manually 
-    click "Logout" or close the browser tab.
+    click "Logout", are kicked by a Super Admin, or close the browser tab.
 
   - NO NETWORK-LEVEL FIREWALLS/IDS: The system does not detect or block 
     malicious network scanning or Denial-of-Service (DoS) attacks.
@@ -104,7 +104,7 @@ The developer has implemented the following technical security controls:
     drives, or recovering lost encryption keys.
 
 ------------------------------------------------------------------------
-3. "AS IS" MIT LICENSE & LEGAL DISCLAIMER (THE LEGAL SHIELD)
+3. "AS IS" MIT LICENSE & LEGAL DISCLAIMER
 ------------------------------------------------------------------------
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
 OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 

@@ -58,12 +58,12 @@ III.  FIRST-TIME LAUNCH
 1.  Double-click your "Launch Database Portal" desktop shortcut.
 2.  A black terminal window will open requesting admin permission.
 3.  THE FIRST TIME YOU RUN THIS:
-      - It will automatically download the local security certificates, install
-        all required libraries, and build the "app_database.db".
+      - It will automatically download the local security certificates (mkcert), 
+        install all required Python libraries, and build the "app_database.db".
       - This first-time setup may take a short while depending on your internet
         connection. DO NOT CLOSE the window until it finishes.
 4.  SUBSEQUENT LAUNCHES:
-      - The app will start almost instantly (2 seconds).
+      - The app will start almost instantly.
 5.  Keep the black terminal window open in the background. Closing it turns off
     the database portal for everyone.
 
@@ -123,9 +123,7 @@ must configure three settings to allow communication:
       - Select "Properties" on your active Wi-Fi connection.
       - Change your Network Profile Type from "Public" to "Private".
 3.  AP/CLIENT ISOLATION (ON THE WIRELESS ROUTER):
-      - Log into your Wi-Fi router's admin dashboard (usually by entering
-        192.168.1.1 or 192.168.254.254 in your browser, check the sticker on the
-        back of your router).
+      - Log into your Wi-Fi router's admin dashboard.
       - Search the wireless settings for a feature called "AP Isolation",
         "Client Isolation", or "Wireless Isolation" and set it to "Disabled".
 4.  GET PERMANENT ACCESS LINK:
@@ -135,8 +133,6 @@ must configure three settings to allow communication:
 
         https://RYZEN-DESKTOP.local
 
-        (Bookmark this on their devices so they never lose it!).
-
 
 
 V.  EXCLUSIVE FEATURES GUIDE
@@ -144,33 +140,32 @@ V.  EXCLUSIVE FEATURES GUIDE
 The following features are now active in the portal to simplify daily use and
 keep your directory clean:
 
+  - MULTI-REGISTRY WORKSPACE: Toggle instantly between "Wiring Permits" and 
+    "CFEI Records" using the sidebar. Searches, bulk edits, and imports isolate 
+    themselves exclusively to your active selected registry.
+
   - 🟢 ACTIVE / 📁 ARCHIVED STATUS COLUMN: To prevent directory clutter, you can
     "Archive (Hide)" records that are unusable or old. Archived records vanish
     from the active search directory but are still counted in system auditing
-    tallies and financial counters (unlike hard-deleted records, which are
-    erased entirely).
+    tallies and financial counters.
 
-  - ARCHIVING & UNARCHIVING:
-      - To Archive: Select a single active row and click the blue "Archive
-        (Hide) Record" button on the details panel.
-      - To Unarchive: Check the "Include Hidden/Archived Records" box at the top
-        of the directory. Select the archived record (labeled with 📁 Archived),
-        and the button dynamically changes to a grey "Unarchive (Show) Record"
-        button. Click it to restore the record to the active view.
-      - Bulk Archive Control: You can select multiple rows in the directory
-        table and click "Archive Items" or "Restore Items" in the bulk board.
+  - BULK EXCEL (XLSX) IMPORTER: Under the Add/Import tab, you can drag-and-drop 
+    transmittal spreadsheets. It features an interactive column mapper and a 
+    duplicate collision detector that highlights repeat names in yellow and 
+    duplicate permit numbers in red.
 
-  - LAST MODIFIED SORTING: You can sort records by when they were last updated.
-    If a record has never been modified, the sorting algorithm automatically
-    defaults to its original creation date.
+  - PRE-PRINT QUANTITY PLANNER: Select any record (or multiple records) and click 
+    "Prepare Print". This launches a planner where you can rapidly fill in 
+    equipment counts and load values before generating a clean, watermarked PDF 
+    form (OBO Copy, Applicant Copy, CFEI Copy).
 
-  - AUTO-RESET MONTHLY SEQUENCE: The 4-digit sequence at the end of the Wiring
-    Permit (WP) number (such as the "0151" in WP-08-26-0151) automatically
+  - FINANCIAL LEDGER & TALLY: Enable the financial ledger from the sidebar to 
+    dynamically track "Total Cost" collected vs. unpaid based on specific custom 
+    date ranges and building categories (e.g., Residential, Commercial, Fencing).
+
+  - LAST MODIFIED SORTING & AUTO-RESET SEQUENCES: You can sort records by when 
+    they were last updated. The 4-digit sequence at the end of Permits automatically
     restarts at "0001" at the beginning of every new calendar month.
-
-  - AUTOMATED WIZARD SCROLLING: When performing step-by-step guided bulk
-    modifications, the system automatically scrolls back to the top of the
-    wizard inputs on each transition so you never have to scroll manually.
 
 
 
@@ -180,23 +175,25 @@ If no active database administrator configurations are specified in your local
 configuration (.env) file, log in using these default master credentials:
 
   - Username: admin
-  - Password: admin
+  - Password: TemporaryAdminPass123!
 
 SECURITY STEP: Go to the "User Accounts Admin" tab immediately. Create your own
-custom admin accounts, then change or delete this default fallback account to
-prevent security breaches.
+custom admin accounts, then change the password for this default fallback account 
+to prevent security breaches.
 
 
 
 VII.  MASTER SECURITY CONSOLE (ROOT-ADMIN ONLY)
 
 Under the "User Accounts Admin" tab, the master System Administrator holds
-exclusive buttons to activate system-wide freezes:
+exclusive buttons to activate system-wide interventions:
 
 1.  Account Management Freeze: Prevents secondary administrators from modifying,
     deleting, or provisioning user accounts.
 2.  Database System Lockdown (Panic Switch): Freezes the entire database in
-    Read-Only mode. All additions, edits, and deletions are blocked.
+    Read-Only mode. All additions, edits, and deletions are strictly blocked.
+3.  Administrative Kick: Forces a logout on a specific user's terminal and 
+    instantly clears any cloud locks they are holding over database records.
 
 
 
@@ -205,10 +202,9 @@ VIII.  HOW AUTOMATED DISASTER BACKUPS WORK
 The database silently duplicates itself to your designated backup directory
 locally inside the "backups" folder every time an action is saved.
 
-To guarantee that backup files can never be corrupted (e.g., during write
-interruptions, power failures, or system crashes), the portal runs an atomic OS 
-swap process. A structural verification (`PRAGMA integrity_check`) is executed on 
-temporary database clones before any existing backup file is replaced.
+To guarantee that backup files can never be corrupted, the portal runs an atomic 
+OS swap process. A structural verification (PRAGMA integrity_check) is executed 
+on temporary database clones before any existing backup file is replaced.
 
 To enable automatic offsite disaster backups (highly recommended):
 
@@ -226,34 +222,29 @@ IX.  HOW TO ACTIVATE AUTOMATED CLOUD SYNC & MULTI-OFFICE COLLABORATION
 The permitting portal includes a built-in decentralized cloud sync engine. 
 When activated, it allows multiple computers in different offices to edit, 
 update, and audit the database in real-time, syncing changes silently over the 
-cloud.
+cloud using JSON changesets.
 
 To activate Cloud Mode on any computer (Server or Client PCs):
 
 1.  RUN THE CLOUD CONNECTOR SCRIPT:
       - Double-click the file named "install_gdrive.bat" inside this folder.
       - A terminal window will open, automatically download the official 
-        Google Drive for Desktop client, and install it silently in the 
-        background.
+        Google Drive for Desktop client, and install it silently.
 2.  LOG IN TO GOOGLE DRIVE:
       - Once the installation is complete, your web browser will open.
       - Log in to your department's official Tanza LGU Google Account.
-      - Google Drive will map itself as a virtual disk on your computer
-        (usually mapping to your G:\ drive).
+      - Google Drive will map itself as a virtual disk (G:\ drive).
 3.  VERIFY SYNC STATUS:
       - Launch your Permitting Portal shortcut.
       - Look at the sidebar. The portal will automatically detect your Google 
         Drive directory and toggle the status from "⚪ Local / Offline Mode" 
-        to:
-        
-        "🟢 Cloud Sync Connected"
-        
+        to "🟢 Cloud Sync Connected".
 4.  HOW MULTI-LOCK COLLABORATION WORKS:
       - When a coworker views or edits a record, the sync engine drops a 
         "flare" (edit lock) in the cloud folder.
       - If another coworker attempts to open or edit that same record, the 
         details panel will show a warning indicating exactly who is currently 
-        editing it to prevent concurrent overwrites or collisions.
+        editing it to prevent concurrent overwrites.
       - Once they close the panel, cancel changes, or log out, the lock is 
         instantly and automatically released for other users.
 ========================================================================
