@@ -314,7 +314,7 @@ def seed_initial_admin():
             is_scrambled = existing_admin and existing_admin.password_hash and existing_admin.password_hash.startswith("KICKED_BY_ADMIN_")
             
             if not existing_admin or is_scrambled:
-                env_pass = os.getenv("INITIAL_ADMIN_PASSWORD", "TemporaryAdminPass123!")
+                env_pass = os.getenv("INITIAL_ADMIN_PASSWORD", "admin")
                 hashed_pass = hash_password(env_pass)
                 
                 if is_scrambled:
